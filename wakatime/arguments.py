@@ -19,7 +19,7 @@ import time
 import traceback
 from .__about__ import __version__
 from .compat import basestring
-from .configs import parseConfigFile
+from .configs import parseConfigFile, getConfigFile
 from .constants import AUTH_ERROR, DEFAULT_SYNC_OFFLINE_ACTIVITY
 from .packages import argparse
 
@@ -234,6 +234,14 @@ def parse_arguments():
             default_key = configs.get('settings', 'api_key')
         elif configs.has_option('settings', 'apikey'):
             default_key = configs.get('settings', 'apikey')
+        else:
+            path_to_secret = getConfigFile('.wakatime.secret')
+            try:
+                with open(path_to_secret, 'r') as fh:
+                    default_key = fh.read().strip()
+            except:
+                pass
+
         if default_key:
             args.key = default_key
         else:

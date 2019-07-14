@@ -25,14 +25,12 @@ except ImportError:  # pragma: nocover
     from .packages import configparser
 
 
-def getConfigFile():
+def getConfigFile(fileName='.wakatime.cfg'):
     """Returns the config file location.
 
     If $WAKATIME_HOME env varialbe is defined, returns
     $WAKATIME_HOME/.wakatime.cfg, otherwise ~/.wakatime.cfg.
     """
-
-    fileName = '.wakatime.cfg'
 
     home = os.environ.get('WAKATIME_HOME')
     if home:
